@@ -30,7 +30,8 @@ BOOLEAN Dumper::GetDumpConfig()
 	GetPrivateProfileStringA("UE4 Dumper", "PatchVersion", "", szPatch, 2, ConfigFile);
 	GetPrivateProfileStringA("UE4 Dumper", "Game", "", DumperData.Config.Game, 1024, ConfigFile);
 
-	if (DWORD ErrCode = GetLastError() != 0)
+	DWORD ErrCode = GetLastError();
+	if (ErrCode != ERROR_SUCCESS)
 	{
 		ErrorHandler(DUMP_STATUS::DUMPER_FAILED_OPEN_CONFIG, ErrCode);
 		return FALSE;
